@@ -1,3 +1,11 @@
+# Official Full documentation
+Made by Kwabena Ankobia
+---
+
+## Installing the Software to run this project
+[Install Backend and FrontEnd](https://www.notion.so/thisistoshaesoyoucan/Installing-Software-7848c4621ca84f27878f68491fdfc340)
+
+
 # MakersQuizManager
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.4.
