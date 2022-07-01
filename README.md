@@ -1,6 +1,9 @@
 # Official Full documentation
 Made by Kwabena Ankobia
 ---
+[Full Project Documentation](https://www.notion.so/thisistoshaesoyoucan/Makers-Final-Project-Quiz-Manager-ff55cd44fc204aa18c38af7c446ec1b4)
+===
+
 
 ## Installing the Software to run this project
 [Install Backend and FrontEnd](https://www.notion.so/thisistoshaesoyoucan/Installing-Software-7848c4621ca84f27878f68491fdfc340)
