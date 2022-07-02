@@ -6,7 +6,9 @@
 		"start": "ng serve",
 		"build": "ng build",
 		"watch": "ng build --watch --configuration development",
-		"test": "ng test"
+		"test": "ng test",
+		"dev": "tsc -w & nodemon ./dist/out-tsc/server/src",
+		"backend": "tsc & node ./dist/out-tsc/server/src"
 	},
 	"private": true,
 	"dependencies": {
