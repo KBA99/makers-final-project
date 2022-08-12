@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from './material.module';
 import { DefaultQuizPageComponent } from './default-quiz-page/default-quiz-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { DefaultQuizPageComponent } from './default-quiz-page/default-quiz-page.
 	],
     declarations: [
         DefaultQuizPageComponent,
-        HeaderComponent
+        HeaderComponent,
+        PageNotFoundComponent
     ],
 	exports: [
         ReactiveFormsModule

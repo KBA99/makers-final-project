@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { LoginComponent } from './user-authentication/login/login.component';
 import { RegisterComponent } from './user-authentication/register/register.component';
 
@@ -8,6 +9,8 @@ const routes: Routes = [
 	{ path: '', component: HomePageComponent },
 	{ path: 'login', component: LoginComponent },
 	{ path: 'register', component: RegisterComponent },
+	{ path: 'not-found', component: PageNotFoundComponent },
+	{ path: '**', redirectTo: '/not-found'}
 ];
 
 @NgModule({
