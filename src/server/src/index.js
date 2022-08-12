@@ -8,6 +8,8 @@ import quizRoute from '../routes/api/quiz-route.js'
 
 const port = config.serverPort || 5500;
 const app = express();
+app.use(express.json())
+
 
 /* ----------------------------- MongoDB Setup ----------------------------- */
 (function connectToDatabase() {
