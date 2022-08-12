@@ -50,3 +50,6 @@ export const login = async (req, res) => {
     
 };
 
+export const resetPassword = async (req, res) => {
+
+}
