@@ -49,6 +49,9 @@
 						placeholder=""
 						id="confirmPassword"
 					/>
+					<small style="color: red;" *ngIf="passwordNoMatchError">
+						Your original password must match your confirmation password.
+					</small>
 				</mat-form-field>
 			</mat-card-content>
 		</div>
