@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    min-height: 100%;
+    background-color: #ceadf0;
+
+    .tab-group-container {
+        background-color: whitesmoke;
+        border: 4px purple solid;
+        border-radius: 9px;    
+        width: fit-content;
+        margin: auto;
+
+        height: 510px;
+        width: 420px;
+    }
+}
+
+.form-container {
+
+
+    .title {
+        width: 100%;
+    }
+
+    .form {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+
+        mat-card-content {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            
+            mat-form-field {
+                width: 95%;
+            }
+        }
+
+        .submit {
+            display: flex;
+            justify-content: center;   
+            
+            button {
+                width: 85%;
+            } 
+        }        
+    }
+}
+
+mat-tab-group {
+    height: 100%;
+}
