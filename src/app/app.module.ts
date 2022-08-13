@@ -10,6 +10,8 @@ import { LoginComponent } from './user-authentication/login/login.component';
 import { RegisterComponent } from './user-authentication/register/register.component';
 import { SharedModule } from './shared/shared.module';
 import { UserAuthenticationComponent } from './user-authentication/user-authentication.component';
+import { AuthService } from './user-authentication/auth.service';
+import { AuthGuardService } from './user-authentication/auth-guard.service';
 
 @NgModule({
 	declarations: [
@@ -26,7 +28,7 @@ import { UserAuthenticationComponent } from './user-authentication/user-authenti
 		MaterialModule,
 		SharedModule,
 	],
-	providers: [],
+	providers: [AuthService, AuthGuardService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
