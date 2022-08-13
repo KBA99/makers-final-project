@@ -1,24 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserAuthenticationComponent } from '../user-authentication.component';
 
 @Component({
 	selector: 'app-register',
 	templateUrl: './register.component.html',
-	styleUrls: ['./register.component.scss'],
+	styleUrls: ['../user-authentication.component.scss'],
 })
-export class RegisterComponent implements OnInit {
-	constructor() {}
+export class RegisterComponent extends UserAuthenticationComponent implements OnInit {
+	constructor() {
+		super();
+	}
 
 	registerForm!: FormGroup;
 
 
-	ngOnInit(): void {
+	override ngOnInit(): void {
 		this.registerForm = new FormGroup({
 			firstName: new FormControl(null, [Validators.required, Validators.nullValidator]),
 			lastName: new FormControl(null, [Validators.required, Validators.nullValidator]),
 			email: new FormControl(null, [Validators.required, Validators.nullValidator]),
 			dateOfBirth: new FormControl(null, [Validators.required, Validators.nullValidator]),
-			// isTextOnPage: new FormControl(null, [Validators.required, Validators.nullValidator]),
+			password: new FormControl(null, [Validators.required, Validators.nullValidator]),
+			confirmPassword: new FormControl(null, [Validators.required, Validators.nullValidator]),
 		});
 	}
 
