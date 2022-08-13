@@ -12,19 +12,17 @@ app.use(express.json())
 
 
 /* ----------------------------- MongoDB Setup ----------------------------- */
-(function connectToDatabase() {
-	mongoose.connect(config.DatabaseURL, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	});
-	const db = mongoose.connection;
+mongoose.connect(config.DatabaseURL, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
+const db = mongoose.connection;
 
-	db.on('open', () => console.log('Connected to Database 🗃'));
-	db.on('error', (error) => console.log(error));
-})()
+db.on('open', () => console.log('[Initialize][Database] Connected to Database 🗃'));
+db.on('error', (error) => console.log(error));
 
 /* ----------------------------- Express app Setup ----------------------------- */
-app.listen(port, () => console.log(`Server is running on http://localhost:${port} 🗂`));
+app.listen(port, () => console.log(`[Initialize][Server] Server is running on http://localhost:${port} 🗂`));
 app.get('/', (_, res) => {
 	res.status(200).send('Application is online');
 });
