@@ -16,6 +16,10 @@ export async function createNewUser(user) {
     return registerUserObject;
 }
 
+export async function findUserByEmail(email) {
+	return await User.findOne({ 'email': email });
+}
+
 export const throwErrorIfUserIsNull = (user) => {
     if(user === null) throw new Error("This user does not exist.")
 }
