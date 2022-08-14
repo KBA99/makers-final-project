@@ -2,29 +2,23 @@ import User from '../models/User.js'
 import bcrypt from 'bcrypt';
 import userSchema from '../models/User.js'
 import crypto from 'node:crypto';
+import { findUserByEmail, throwErrorIfUserIsNull, createNewUser, throwErrorIfUserExists } from '../services/user-service.js';
 
 
 export const register = async (req, res) => {
     try {
-        const { firstName, lastName, email, password,
-        } = req.body;
+        const { email }  = req.body;
+        const user = await findUserByEmail(email)
+        throwErrorIfUserExists(user)
 
-        //TODO logic to check if if user already exits in the service
+        const registeredUserObject = await createNewUser(req.body)
+        res.status(201).send("New user created.")
 
         const hashedAndSaltedPassword = await bcrypt.hash(password, salt)
 
-        const registerUserObject = await User.create({
-            firstName,
-			lastName,
-            email,
-			hashedAndSaltedPassword
-        })
-		// some logic to validate whether a user already exists here and send some data here
-        res.status(201).send("User Saved")
-        console.log(registerUserObject)
     } catch (error) {
         console.log(error.message);
-        res.status(401).send(error.message);
+        res.status(404).send({error: error.message}); // not found
     }
 }
 
