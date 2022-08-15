@@ -1,8 +1,5 @@
-import User from '../models/User.js'
-import bcrypt from 'bcrypt';
-import userSchema from '../models/User.js'
-import crypto from 'node:crypto';
-import { findUserByEmail, throwErrorIfUserIsNull, createNewUser, throwErrorIfUserExists } from '../services/user-service.js';
+import { findUserByEmail, throwErrorIfUserIsNull, createNewUser, throwErrorIfUserExists, authenticateUserByEmailAndPassword } from '../services/user-service.js';
+import { generateAccessToken } from '../middleware/authentication.js';
 
 
 export const register = async (req, res) => {
@@ -12,9 +9,11 @@ export const register = async (req, res) => {
         throwErrorIfUserExists(user)
 
         const registeredUserObject = await createNewUser(req.body)
-        res.status(201).send("New user created.")
+    
+        const jwtToken = generateAccessToken(registeredUserObject)
+        res.status(201).set('Authorization', `bearer ${jwtToken}`).send({data: "New user created."});
 
-        const hashedAndSaltedPassword = await bcrypt.hash(password, salt)
+        console.log(registeredUserObject)
 
     } catch (error) {
         console.log(error.message);
@@ -23,23 +22,18 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-    //TODO logic to find the user name, throw error if no username
-
-    // const user = User.find(user => user.email === req.body.email)
-    // if (user == null) {
-    //     return res.status(400).send('Cannot find user')
-    // }
-
-
     try {
-        if(await bcrypt.compare(req.body.password, user.password)){
-        res.status(201).send("User succesfully athenticated")
-        // JWT authentication here
-        }
+        const { email, password } = req.body;
+        const user = await findUserByEmail(email)
+        throwErrorIfUserIsNull(user)
 
+        authenticateUserByEmailAndPassword(password, user.password)
+
+        const jwtToken = generateAccessToken(user)
+        res.status(200).set('Authorization', `bearer ${jwtToken}`).send({data: "User Authenticated."});
     } catch (error) {
         console.log(error.message);
-        res.status(400).send(error.message);
+        res.status(403).send({error: error.message}); // forbidden
     }
     
 };
