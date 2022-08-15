@@ -1,34 +1,20 @@
 <app-header></app-header>
 <div class="default-page-container">
-	<mat-sidenav-container class="mat-sidenav-container">
+	<mat-sidenav-container class="mat-sidenav-container mat-elevation-z2">
 		<mat-sidenav-content>
-            <ul>
-                <li>
-                    <a href="#">
-                        Create a new quiz
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        View my scores
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        View all Quizzes
-                    </a>
-                </li>
-            </ul>
+            <mat-nav-list>
+				<a mat-list-item routerLinkActive="active" [routerLink]="['/quiz']"> View All Quizzes </a>
+				<a mat-list-item routerLinkActive="active" [routerLink]="['/accounts']"> Create a new quiz </a>
+				<a mat-list-item routerLinkActive="active" [routerLink]="['/create-account']">View my scores </a>
+			</mat-nav-list>
 		</mat-sidenav-content>
 	</mat-sidenav-container>
 
-    <div class="default-page-main-content">
-        <ng-content></ng-content>
-        stuff here for example
-    </div>
+	<div class="default-page-content">
+		<ng-content></ng-content>
+	</div>
 
-    <div class="default-page-content">
-        <!-- <mat-card>
+		<!-- <mat-card>
             <mat-card-title></mat-card-title>
             <mat-card-subtitle></mat-card-subtitle>
             <mat-card-content>
@@ -40,6 +26,4 @@
                 <button mat-button>SHARE</button>
             </mat-card-actions>
         </mat-card> -->
-    </div>
-
 </div>
