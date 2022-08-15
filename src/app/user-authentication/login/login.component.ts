@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { Credentials } from '../authentication.types';
 import { UserAuthenticationComponent } from '../user-authentication.component';
 
 @Component({
@@ -9,17 +12,41 @@ import { UserAuthenticationComponent } from '../user-authentication.component';
 })
 export class LoginComponent extends UserAuthenticationComponent implements OnInit {
 	loginForm!: FormGroup<{ email: FormControl<null>; password: FormControl<null> }>;
+	loginFailStatus = false;
 
-	constructor() {
-		super();
+	constructor(authService: AuthService,
+				router: Router) {
+		super(authService, router);
 	}
 
 	override ngOnInit(): void {
 		this.loginForm = new FormGroup({
-			email: new FormControl(null, [Validators.required, Validators.nullValidator]),
+			email: new FormControl(null, [
+				Validators.required,
+				Validators.nullValidator,
+				Validators.email,
+			]),
 			password: new FormControl(null, [Validators.required, Validators.nullValidator]),
 		});
 	}
 
-	onLogin() {}
+	onLogin() {
+		if (this.loginForm.valid) {
+			const credentials = this.prepareLoginObjet(this.loginForm)
+			this.authService.login(credentials)
+		} else {
+			this.loginFailStatus = true;
+			setTimeout(() => {
+				this.loginFailStatus = false;
+			}, 5000);
+			this.loginForm.reset()
+		}
+	}
+
+	prepareLoginObjet(loginForm: FormGroup) {
+		return <Credentials> {
+			email: loginForm.value.email,
+			password: loginForm.value.password
+		}
+	}
 }
