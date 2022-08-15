@@ -1,0 +1,12 @@
+.mat-sidenav-container {
+	height: 92vh;
+	position: fixed;
+	width: 240px;
+	background-color: whitesmoke;
+	border-right: #b7b7b7 solid 1px;
+}
+
+.active {
+	color: #673ab7;
+	background-color: rgba(103, 58, 183, 0.15);
+}
