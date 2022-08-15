@@ -1,4 +1,4 @@
-import { findUserByEmail, throwErrorIfUserIsNull, createNewUser, throwErrorIfUserExists, authenticateUserByEmailAndPassword } from '../services/user-service.js';
+import { findUserByEmail, throwErrorIfUserIsNull, createNewUser, throwErrorIfUserExists, authenticateUserByEmailAndPassword, throwErrorIfPasswordIsIncorrect} from '../services/user-service.js';
 import { generateAccessToken } from '../middleware/authentication.js';
 
 
@@ -27,7 +27,8 @@ export const login = async (req, res) => {
         const user = await findUserByEmail(email)
         throwErrorIfUserIsNull(user)
 
-        authenticateUserByEmailAndPassword(password, user.password)
+        const loggedIn = await authenticateUserByEmailAndPassword(password, user.password)
+        throwErrorIfPasswordIsIncorrect(loggedIn)
 
         const jwtToken = generateAccessToken(user)
         res.status(200).set('Authorization', `bearer ${jwtToken}`).set('Access-Control-Expose-Headers', '*').send({data: "User Authenticated."});
