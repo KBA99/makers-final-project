@@ -6,6 +6,7 @@ import { MaterialModule } from './material.module';
 import { DefaultQuizPageComponent } from './default-quiz-page/default-quiz-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { RouterModule } from '@angular/router';
     declarations: [
         DefaultQuizPageComponent,
         HeaderComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        NavbarComponent
     ],
 	exports: [
         ReactiveFormsModule,
