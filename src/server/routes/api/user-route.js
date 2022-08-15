@@ -4,6 +4,7 @@ import {
 	login,
 	resetPassword
 } from '../../controllers/user-rest-controller.js';
+import { verifyToken } from '../../middleware/authentication.js';
 
 const router = express.Router();
 
@@ -16,5 +17,7 @@ router.post('/register', register);
 router.post('/login', login);
 
 router.post('/reset', resetPassword)
+
+router.head('/authenticate', verifyToken)
 
 export default router;
