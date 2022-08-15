@@ -10,6 +10,7 @@ export enum UserPath {
 	register = 'user/register/',
 	login = 'user/login/',
 	reset = 'user/reset/',
+	authenticate = 'user/authenticate/'
 }
 
 export enum QuizPath {
