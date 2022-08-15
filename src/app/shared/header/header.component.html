@@ -1,1 +1,27 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+	<button mat-icon-button [matMenuTriggerFor]="menu">
+		<mat-icon>menu</mat-icon>
+	</button>
+
+	<mat-menu #menu="matMenu">
+		<button mat-menu-item>
+			<mat-icon>dialpad</mat-icon>
+			<span>1</span>
+		</button>
+		<button mat-menu-item disabled>
+			<mat-icon>voicemail</mat-icon>
+			<span>2</span>
+		</button>
+		<button mat-menu-item>
+			<mat-icon>notifications_off</mat-icon>
+			<span>3</span>
+		</button>
+	</mat-menu>
+
+	<span>Quiz Manager</span>
+	<span class="header-spacer"></span>
+	<button mat-icon-button>
+		<mat-icon>share</mat-icon>
+	</button>
+	<button color="warn" mat-raised-button (click)="onLogout()">Logout</button>
+</mat-toolbar>
