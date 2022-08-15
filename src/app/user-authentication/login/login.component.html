@@ -17,6 +17,9 @@
 						id="password"
 					/>
 				</mat-form-field>
+                <small style="color: red;" *ngIf="loginFailStatus">
+                    Failed to Authenticate
+                </small>
 			</mat-card-content>
 		</div>
 
