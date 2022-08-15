@@ -15,6 +15,7 @@ import { AuthGuardService } from './user-authentication/auth-guard.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { QuizComponent } from './home-page/quiz/quiz.component';
 
 @NgModule({
 	declarations: [
@@ -23,6 +24,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
 		LoginComponent,
 		RegisterComponent,
 		UserAuthenticationComponent,
+		QuizComponent,
 	],
 	imports: [
 		BrowserModule,
