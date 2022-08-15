@@ -29,6 +29,7 @@ export class AuthService {
 					this.authToken = data.headers.get('Authorization');
 					this._isLoggedIn = (!!this.authToken);
 					this.setTokenInBrowser()
+					this.redirectToHomePage()
 				},
 				error: (error) => {
 					console.log(error);
@@ -41,6 +42,10 @@ export class AuthService {
 		localStorage.clear()
 	}
 
+	redirectToHomePage() {
+		this.router.navigate(['/'])
+	}
+
 	register(credentials: Credentials) {
 		this.http
 			.post(ApiPath.base + UserPath.register, credentials, { observe: 'response' })
@@ -49,6 +54,7 @@ export class AuthService {
 					this.authToken = data.headers.get('Authorization');
 					this._isLoggedIn = (!!this.authToken);
 					this.setTokenInBrowser()
+					this.redirectToHomePage()
 				},
 				error: (error) => {
 					console.log(error);
@@ -68,7 +74,9 @@ export class AuthService {
 				return res
 			},
 			error: (error) => {
+				this.logout()
 				console.error(error)
+				console.log("logging out")
 			}
 		})
 	}
