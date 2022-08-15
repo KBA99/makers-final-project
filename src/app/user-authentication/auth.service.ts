@@ -40,6 +40,7 @@ export class AuthService {
 	logout() {
 		this.authToken = null
 		localStorage.clear()
+		this.router.navigate(['/login'])
 	}
 
 	redirectToHomePage() {
