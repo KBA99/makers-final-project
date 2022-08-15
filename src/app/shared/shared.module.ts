@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from './material.module';
 import { DefaultQuizPageComponent } from './default-quiz-page/default-quiz-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         ReactiveFormsModule,
         MaterialModule,
         CommonModule,
+        RouterModule,
 	],
     declarations: [
         DefaultQuizPageComponent,
