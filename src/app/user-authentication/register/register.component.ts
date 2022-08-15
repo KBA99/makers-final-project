@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { Credentials } from '../authentication.types';
 import { UserAuthenticationComponent } from '../user-authentication.component';
 
 @Component({
@@ -8,8 +11,11 @@ import { UserAuthenticationComponent } from '../user-authentication.component';
 	styleUrls: ['../user-authentication.component.scss'],
 })
 export class RegisterComponent extends UserAuthenticationComponent implements OnInit {
-	constructor() {
-		super();
+	constructor(
+		authService: AuthService,
+		router: Router
+	) {
+		super(authService, router);
 	}
 
 	registerForm!: FormGroup;
@@ -32,14 +38,26 @@ export class RegisterComponent extends UserAuthenticationComponent implements On
 	onRegister() {
 		if (this.registerForm.valid) {
 			if (this.registerForm.value.confirmPassword === this.registerForm.value.password) {
-
+				const credentials = this.prepareRegisterObject(this.registerForm)
+				this.authService.register(credentials)
+				this.registerForm.reset()
 			} else {
 				this.passwordNoMatchError = true;
 				setTimeout(() => {
 					this.passwordNoMatchError = false;
 				}, 5000);
+				this.registerForm.reset()
 			}
 		}
-		// Logic to check if the email exists already
 	}
+
+	prepareRegisterObject(registerForm: FormGroup) {
+		return <Credentials> {
+			firstName: registerForm.value.firstName,
+			lastName: registerForm.value.lastName,
+			email: registerForm.value.email,
+			password: registerForm.value.password
+		}
+	}
+
 }
