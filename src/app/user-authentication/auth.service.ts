@@ -8,10 +8,9 @@ import { Credentials } from './authentication.types';
 	providedIn: 'root',
 })
 export class AuthService {
-	constructor(private router: Router, 
-				private http: HttpClient) {}
+	constructor(private router: Router, private http: HttpClient) {}
 
-	protected authToken: string | undefined;
+	protected authToken: string | null | undefined;
 	isLoggedIn = false;
 
 	isAuthenticated() {
@@ -19,30 +18,33 @@ export class AuthService {
 	}
 
 	login(credentials: Credentials) {
-		this.http.post(ApiPath.base + UserPath.login, credentials)
-		.subscribe({
-			next: (data) => {
-				console.log(data);
-				this.isLoggedIn = true;
-			},
-			error: (error) => {
-				console.log(error);
-			},
-		});
+		this.http
+			.post(ApiPath.base + UserPath.login, credentials, { observe: 'response' })
+			.subscribe({
+				next: (data) => {
+					this.authToken = data.headers.get('Authorization');
+					this.isLoggedIn = true;
+				},
+				error: (error) => {
+					console.log(error);
+				},
+			});
 	}
 
 	logout() {}
 
 	register(credentials: Credentials) {
-		this.http.post(ApiPath.base + UserPath.register, credentials).subscribe({
-			next: (data) => {
-				console.log(data);
-				this.isLoggedIn = true;
-			},
-			error: (error) => {
-				console.log(error);
-			},
-		});
+		this.http
+			.post(ApiPath.base + UserPath.register, credentials, { observe: 'response' })
+			.subscribe({
+				next: (data) => {
+					this.authToken = data.headers.get('Authorization');
+					this.isLoggedIn = true;
+				},
+				error: (error) => {
+					console.log(error);
+				},
+			});
 	}
 
 	getToken() {
