@@ -11,10 +11,10 @@ export class AuthService {
 	constructor(private router: Router, private http: HttpClient) {}
 
 	protected authToken: string | null | undefined;
-	isLoggedIn = false;
+	private _isLoggedIn: boolean | undefined
 
 	isAuthenticated() {
-		return this.isLoggedIn;
+		return !!this.getToken()
 	}
 
 	login(credentials: Credentials) {
@@ -23,7 +23,8 @@ export class AuthService {
 			.subscribe({
 				next: (data) => {
 					this.authToken = data.headers.get('Authorization');
-					this.isLoggedIn = true;
+					this._isLoggedIn = (!!this.authToken);
+					this.setTokenInBrowser()
 				},
 				error: (error) => {
 					console.log(error);
@@ -31,7 +32,10 @@ export class AuthService {
 			});
 	}
 
-	logout() {}
+	logout() {
+		this.authToken = null
+		localStorage.clear()
+	}
 
 	register(credentials: Credentials) {
 		this.http
@@ -39,7 +43,8 @@ export class AuthService {
 			.subscribe({
 				next: (data) => {
 					this.authToken = data.headers.get('Authorization');
-					this.isLoggedIn = true;
+					this._isLoggedIn = (!!this.authToken);
+					this.setTokenInBrowser()
 				},
 				error: (error) => {
 					console.log(error);
@@ -47,18 +52,25 @@ export class AuthService {
 			});
 	}
 
+	setTokenInBrowser() {
+		if (!!this.authToken) {
+			return localStorage.setItem("Authorization", this.authToken)
+		}
+	}
+
 	getToken() {
-		return localStorage.getItem('token');
+		return localStorage.getItem('Authorization');
 	}
 
-
-	async setBearerToken() {
-		// get token from fetch request
-		const res: any = '';
-		const token = await res.json();
-
-		// set token in cookie
-		document.cookie = `token=${token}`;
+	validateToken() {
+		this.http.head(ApiPath.base + UserPath.authenticate).subscribe({
+			next: (res) => {
+				return res
+			},
+			error: (error) => {
+				console.error(error)
+			}
+		})
 	}
+
 }
-
