@@ -1,0 +1,28 @@
+.default-page-container {
+	background-color: #ccb9f0;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+
+	.default-page-content {
+        margin-left: 256px;
+        margin-right: 16px;
+        height: 87%;
+	}
+
+	.default-page-navbar {
+		width: 400px;
+		height: 200px;
+		margin: 10px;
+		border: 1px solid #555;
+	}
+
+    .mat-sidenav-container { 
+        height: 92vh;
+        position: fixed;
+        width: 240px;
+        padding-left: 20px;
+        background-color: #b291eb;
+    }
+
+}
