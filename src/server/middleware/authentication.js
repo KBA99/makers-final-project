@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { config } from '../config.js';
 
-function authenticateToken(req, res, next) {
+export function authenticateToken(req, res, next) {
 	const authHeader = req.headers['Authorization'];
 	const token = authHeader?.split(' ')[1];
 
@@ -10,7 +10,7 @@ function authenticateToken(req, res, next) {
 	jwt.verify(token, config.TOKEN_SECRET, (err, user) => {
 		console.log(err);
 
-		if (err) return res.sendStatus(401);
+		if (err) return res.sendStatus(403);
 
 		req.user = user;
 		next();

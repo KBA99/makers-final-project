@@ -5,10 +5,13 @@ import mongoose from 'mongoose';
 import questionsRoute from '../routes/api/questions-route.js'
 import userRoute from '../routes/api/user-route.js'
 import quizRoute from '../routes/api/quiz-route.js'
+import cors from 'cors'
+import { authenticateToken } from '../middleware/authentication.js';
 
 const port = config.serverPort || 5500;
 const app = express();
 app.use(express.json())
+app.use(cors())
 
 
 /* ----------------------------- MongoDB Setup ----------------------------- */
@@ -28,5 +31,7 @@ app.get('/', (_, res) => {
 });
 
 app.use('/rest/user', userRoute);
+
+app.use(authenticateToken)
 app.use('/rest/questions', questionsRoute);
 app.use('/rest/quiz', quizRoute);
