@@ -12,6 +12,9 @@ import { SharedModule } from './shared/shared.module';
 import { UserAuthenticationComponent } from './user-authentication/user-authentication.component';
 import { AuthService } from './user-authentication/auth.service';
 import { AuthGuardService } from './user-authentication/auth-guard.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { TokenInterceptorService } from './user-authentication/token-interceptor.service';
 
 @NgModule({
 	declarations: [
@@ -27,8 +30,17 @@ import { AuthGuardService } from './user-authentication/auth-guard.service';
 		BrowserAnimationsModule,
 		MaterialModule,
 		SharedModule,
+		HttpClientModule,
 	],
-	providers: [AuthService, AuthGuardService],
+	providers: [
+		AuthService,
+		AuthGuardService,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: TokenInterceptorService,
+			multi: true,
+		},
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
